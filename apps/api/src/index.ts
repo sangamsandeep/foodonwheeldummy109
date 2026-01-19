@@ -13,6 +13,10 @@ import twilioRouter from './routes/twilio';
 
 const app = express();
 
+// Honor X-Forwarded-* headers when behind proxies (Railway/Ingress)
+// This is required so express-rate-limit sees the real client IP.
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(cors({
   origin: env.FRONTEND_URL,
