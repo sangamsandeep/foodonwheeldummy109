@@ -761,44 +761,23 @@ async function main() {
 
   console.log(`📍 Using store: ${store.name}`);
 
-  // Check how many items exist
-  const existingCount = await prisma.menuItem.count({
+  // Just clear imageUrl for all existing items (don't delete to preserve orders)
+  const updateCount = await prisma.menuItem.updateMany({
     where: { storeId: store.id },
+    data: { imageUrl: null },
   });
 
-  if (existingCount > 0) {
-    console.log(`⚠️  ${existingCount} menu items exist. Deleting old items...`);
-    await prisma.menuItem.deleteMany({
-      where: { storeId: store.id },
-    });
-    console.log(`✅ Deleted all old menu items.`);
-  }
-
-  // Create all menu items
-  let created = 0;
-  for (const item of restaurantMenuItems) {
-    await prisma.menuItem.create({
-      data: {
-        ...item,
-        imageUrl: null,
-        storeId: store.id,
-        isAvailable: true,
-      },
-    });
-    created++;
-  }
-
-  console.log(`✅ Created ${created} menu items across all categories`);
+  console.log(`✅ Updated ${updateCount.count} existing menu items - cleared imageUrl`);
 
   // Group by category for summary
   const categories = [...new Set(restaurantMenuItems.map((i) => i.description))];
-  console.log(`\n📂 Categories added:`);
+  console.log(`\n📂 Categories in database:`);
   categories.forEach((cat) => {
     const count = restaurantMenuItems.filter((i) => i.description === cat).length;
     console.log(`   - ${cat}: ${count} items`);
   });
 
-  console.log('\n🎉 Restaurant menu seed completed!');
+  console.log('\n🎉 Restaurant menu updated - images removed!');
 }
 
 main()
