@@ -1,0 +1,17 @@
+<svg width="640" height="420" viewBox="0 0 640 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FF7A1A" offset="0%" />
+      <stop stop-color="#FF3B7F" offset="70%" />
+      <stop stop-color="#FFD8ED" offset="100%" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" rx="28" fill="url(#bg1)" />
+  <circle cx="520" cy="80" r="90" fill="rgba(255,255,255,0.16)" />
+  <circle cx="140" cy="340" r="120" fill="rgba(255,255,255,0.14)" />
+  <path d="M110 140 Q 220 60 340 140 T 570 140" stroke="white" stroke-opacity="0.4" stroke-width="16" fill="none" stroke-linecap="round" />
+  <path d="M80 210 Q 180 260 260 210 T 520 210" stroke="white" stroke-opacity="0.25" stroke-width="14" fill="none" stroke-linecap="round" />
+  <text x="80" y="240" fill="#120a1d" font-family="'Noto Sans Telugu', 'Manrope', 'Inter', system-ui" font-weight="700" font-size="56">సరే సర్!</text>
+  <text x="82" y="280" fill="#120a1d" font-family="'Manrope', 'Inter', system-ui" font-weight="600" font-size="22">Queue chill, snacks incoming.</text>
+  <text x="82" y="315" fill="#120a1d" font-family="'Manrope', 'Inter', system-ui" font-weight="500" font-size="18">QR స్కాన్ చేసాక కాఫీ almost ready.</text>
+</svg>

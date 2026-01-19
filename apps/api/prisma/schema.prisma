@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Store {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  timezone  String   @default("UTC")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  menuItems MenuItem[]
+  orders    Order[]
+
+  @@map("stores")
+}
+
+model MenuItem {
+  id          String  @id @default(uuid())
+  storeId     String  @map("store_id")
+  name        String
+  description String?
+  priceCents  Int     @map("price_cents")
+  costCents   Int     @map("cost_cents")
+  isAvailable Boolean @default(true) @map("is_available")
+  sortOrder   Int     @default(0) @map("sort_order")
+  imageUrl    String? @map("image_url")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  store      Store       @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+
+  @@index([storeId, isAvailable])
+  @@map("menu_items")
+}
+
+enum OrderStatus {
+  PLACED
+  PREPARING
+  READY
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+model Order {
+  id                       String        @id @default(uuid())
+  storeId                  String        @map("store_id")
+  orderNumber              Int           @map("order_number")
+  customerPhoneE164        String        @map("customer_phone_e164")
+  consentCall              Boolean       @default(false) @map("consent_call")
+  consentSms               Boolean       @default(false) @map("consent_sms")
+  status                   OrderStatus   @default(PLACED)
+  paymentStatus            PaymentStatus @default(UNPAID) @map("payment_status")
+  subtotalCents            Int           @map("subtotal_cents")
+  taxCents                 Int           @default(0) @map("tax_cents")
+  tipCents                 Int           @default(0) @map("tip_cents")
+  totalCents               Int           @map("total_cents")
+  currency                 String        @default("usd")
+  stripeCheckoutSessionId  String?       @unique @map("stripe_checkout_session_id")
+  stripePaymentIntentId    String?       @map("stripe_payment_intent_id")
+  pickupOtpHash            String?       @map("pickup_otp_hash")
+  pickupOtpLast4           String?       @map("pickup_otp_last4")
+  pickupOtpExpiresAt       DateTime?     @map("pickup_otp_expires_at")
+  pickupOtpAttempts        Int           @default(0) @map("pickup_otp_attempts")
+  stripeFeeCents           Int?          @map("stripe_fee_cents")
+  commCostCents            Int?          @map("comm_cost_cents")
+  grossProfitCents         Int?          @map("gross_profit_cents")
+  netProfitCents           Int?          @map("net_profit_cents")
+  placedAt                 DateTime?     @map("placed_at")
+  readyAt                  DateTime?     @map("ready_at")
+  completedAt              DateTime?     @map("completed_at")
+  createdAt                DateTime      @default(now()) @map("created_at")
+  updatedAt                DateTime      @updatedAt @map("updated_at")
+
+  store     Store       @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  items     OrderItem[]
+  payments  Payment[]
+  callLogs  CallLog[]
+
+  @@unique([storeId, orderNumber])
+  @@index([storeId, status])
+  @@index([customerPhoneE164])
+  @@map("orders")
+}
+
+model OrderItem {
+  id                 String  @id @default(uuid())
+  orderId            String  @map("order_id")
+  menuItemId         String  @map("menu_item_id")
+  nameSnapshot       String  @map("name_snapshot")
+  priceCentsSnapshot Int     @map("price_cents_snapshot")
+  costCentsSnapshot  Int     @map("cost_cents_snapshot")
+  quantity           Int
+  modifiersJson      String? @map("modifiers_json")
+
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id])
+
+  @@index([orderId])
+  @@map("order_items")
+}
+
+model Payment {
+  id                      String   @id @default(uuid())
+  orderId                 String   @map("order_id")
+  provider                String   @default("stripe")
+  amountCents             Int      @map("amount_cents")
+  currency                String   @default("usd")
+  status                  String
+  stripeCheckoutSessionId String?  @map("stripe_checkout_session_id")
+  stripePaymentIntentId   String?  @map("stripe_payment_intent_id")
+  receiptUrl              String?  @map("receipt_url")
+  createdAt               DateTime @default(now()) @map("created_at")
+  updatedAt               DateTime @updatedAt @map("updated_at")
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@map("payments")
+}
+
+model CallLog {
+  id            String   @id @default(uuid())
+  orderId       String   @map("order_id")
+  toPhoneE164   String   @map("to_phone_e164")
+  fromPhoneE164 String   @map("from_phone_e164")
+  twilioCallSid String?  @map("twilio_call_sid")
+  status        String?
+  errorCode     String?  @map("error_code")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([twilioCallSid])
+  @@map("call_logs")
+}

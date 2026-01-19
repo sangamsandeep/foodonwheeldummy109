@@ -1,0 +1,15 @@
+<svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sticker" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FF3B7F" offset="0%" />
+      <stop stop-color="#FF7A1A" offset="100%" />
+    </linearGradient>
+  </defs>
+  <path d="M40 60 C40 35 60 20 82 20 H238 C260 20 280 35 280 60 V240 C280 265 260 280 238 280 H82 C60 280 40 265 40 240 V60Z" fill="url(#sticker)" />
+  <path d="M60 80 C60 60 75 48 92 48 H228 C245 48 260 60 260 80 V220 C260 240 245 252 228 252 H92 C75 252 60 240 60 220 V80Z" fill="rgba(255,255,255,0.2)" />
+  <circle cx="110" cy="120" r="12" fill="#fff7ed" />
+  <circle cx="210" cy="120" r="12" fill="#fff7ed" />
+  <path d="M120 190 Q160 220 200 190" stroke="#fff7ed" stroke-width="8" stroke-linecap="round" />
+  <text x="72" y="98" fill="#1a0f26" font-family="'Noto Sans Telugu', 'Manrope', 'Inter', system-ui" font-weight="800" font-size="26">చిల్ బాబు</text>
+  <text x="84" y="230" fill="#1a0f26" font-family="'Manrope', 'Inter', system-ui" font-weight="700" font-size="20">Order memeing</text>
+</svg>

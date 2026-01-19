@@ -1,0 +1,19 @@
+<svg width="640" height="420" viewBox="0 0 640 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg2" cx="0.3" cy="0.2" r="1">
+      <stop offset="0%" stop-color="#FFD166" />
+      <stop offset="50%" stop-color="#FF7A1A" />
+      <stop offset="100%" stop-color="#1A0F26" />
+    </radialGradient>
+  </defs>
+  <rect width="640" height="420" rx="28" fill="url(#bg2)" />
+  <rect x="60" y="70" width="520" height="280" rx="26" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255,255,255,0.4)" stroke-width="2" />
+  <path d="M90 180 H550" stroke="#FFE8BA" stroke-width="6" stroke-linecap="round" stroke-dasharray="12 10" />
+  <path d="M120 250 H520" stroke="#FFE8BA" stroke-width="6" stroke-linecap="round" stroke-dasharray="16 12" />
+  <circle cx="160" cy="190" r="18" fill="#FF3B7F" />
+  <circle cx="220" cy="190" r="18" fill="#FF7A1A" />
+  <circle cx="280" cy="190" r="18" fill="#FFD166" />
+  <text x="100" y="140" fill="#fff7ed" font-family="'Noto Sans Telugu', 'Manrope', 'Inter', system-ui" font-weight="800" font-size="50">వెయిట్ చెయ్యి</text>
+  <text x="100" y="205" fill="#ffe8ba" font-family="'Manrope', 'Inter', system-ui" font-weight="700" font-size="24">Order cooking... status PREPARING 🔥</text>
+  <text x="100" y="270" fill="#ffe8ba" font-family="'Manrope', 'Inter', system-ui" font-weight="500" font-size="18">Meme meter: జస్ట్ chill, OTP వస్తుంది.</text>
+</svg>
