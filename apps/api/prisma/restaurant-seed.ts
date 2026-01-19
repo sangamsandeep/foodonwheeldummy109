@@ -2,14 +2,6 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// Generate unique image URL based on item name
-function generateImageUrl(name: string, sortOrder: number): string {
-  // Use loremflickr which provides real food images
-  // Each unique name gets a unique image based on its hash
-  const seed = Math.abs(name.split('').reduce((a, b) => {a = ((a << 5) - a) + b.charCodeAt(0); return a & a;}, 0)) + sortOrder;
-  return `https://loremflickr.com/400/300/food,${name.replace(/\s+/g, '')}?lock=${seed}`;
-}
-
 interface MenuItemData {
   name: string;
   description: string; // category
@@ -788,7 +780,7 @@ async function main() {
     await prisma.menuItem.create({
       data: {
         ...item,
-        imageUrl: generateImageUrl(item.name, item.sortOrder),
+        imageUrl: null,
         storeId: store.id,
         isAvailable: true,
       },

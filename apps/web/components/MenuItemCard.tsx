@@ -12,24 +12,22 @@ export default function MenuItemCard({ item, onAdd }: MenuItemCardProps) {
   const priceFormatted = (item.priceCents / 100).toFixed(2);
 
   return (
-    <div className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow bg-white">
-      <div className="flex justify-between items-start mb-2">
-        <div className="flex-1">
-          <h3 className="font-semibold text-lg">{item.name}</h3>
-          {item.description && (
-            <p className="text-sm text-gray-600 mt-1">{item.description}</p>
-          )}
-        </div>
-        <div className="ml-4 text-right">
-          <p className="font-bold text-lg">${priceFormatted}</p>
-        </div>
+    <div className="flex justify-between items-center p-3 border-b hover:bg-gray-50 transition-colors">
+      <div className="flex-1">
+        <p className="font-medium text-gray-900">{item.name}</p>
+        {item.description && (
+          <p className="text-xs text-gray-600">{item.description}</p>
+        )}
       </div>
-      <button
-        onClick={onAdd}
-        className="w-full mt-3 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition-colors"
-      >
-        Add to Cart
-      </button>
+      <div className="flex items-center gap-3 ml-4">
+        <p className="font-semibold text-lg text-blue-600">${priceFormatted}</p>
+        <button
+          onClick={onAdd}
+          className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-1 px-3 rounded transition-colors text-sm"
+        >
+          Add
+        </button>
+      </div>
     </div>
   );
 }
