@@ -54,11 +54,11 @@ export async function getDailySummary(storeId: string, date: string) {
   const summary = {
     date,
     orderCount: orders.length,
-    totalRevenueCents: orders.reduce((sum, o) => sum + o.totalCents, 0),
-    totalGrossProfitCents: orders.reduce((sum, o) => sum + (o.grossProfitCents || 0), 0),
-    totalNetProfitCents: orders.reduce((sum, o) => sum + (o.netProfitCents || 0), 0),
-    totalStripeFeeCents: orders.reduce((sum, o) => sum + (o.stripeFeeCents || 0), 0),
-    totalCommCostCents: orders.reduce((sum, o) => sum + (o.commCostCents || 0), 0),
+    totalRevenueCents: orders.reduce((sum: number, o: any) => sum + o.totalCents, 0),
+    totalGrossProfitCents: orders.reduce((sum: number, o: any) => sum + (o.grossProfitCents || 0), 0),
+    totalNetProfitCents: orders.reduce((sum: number, o: any) => sum + (o.netProfitCents || 0), 0),
+    totalStripeFeeCents: orders.reduce((sum: number, o: any) => sum + (o.stripeFeeCents || 0), 0),
+    totalCommCostCents: orders.reduce((sum: number, o: any) => sum + (o.commCostCents || 0), 0),
   };
 
   return summary;

@@ -54,7 +54,7 @@ router.post(
         // Calculate profit metrics
         const itemsRevenueCents = order.subtotalCents;
         const itemsCostCents = order.items.reduce(
-          (sum, item) => sum + item.costCentsSnapshot * item.quantity,
+          (sum: number, item: any) => sum + item.costCentsSnapshot * item.quantity,
           0
         );
 

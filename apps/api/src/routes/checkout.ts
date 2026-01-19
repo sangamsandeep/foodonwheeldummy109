@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
     const orderItemsData: any[] = [];
 
     for (const cartItem of cartItems) {
-      const menuItem = menuItems.find((m) => m.id === cartItem.menuItemId);
+      const menuItem = menuItems.find((m: any) => m.id === cartItem.menuItemId);
       if (!menuItem) continue;
 
       const itemTotal = menuItem.priceCents * cartItem.quantity;
@@ -90,7 +90,7 @@ router.post('/', async (req, res) => {
     });
 
     // Create Stripe checkout session
-    const lineItems = menuItems.map((menuItem) => {
+    const lineItems = menuItems.map((menuItem: any) => {
       const cartItem = cartItems.find((c) => c.menuItemId === menuItem.id)!;
       return {
         price_data: {

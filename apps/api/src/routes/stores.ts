@@ -25,7 +25,7 @@ router.get('/:slug/menu', async (req, res) => {
 
     // Group items by category (description field)
     const groupedByCategory = store.menuItems.reduce(
-      (acc, item) => {
+      (acc: any, item: any) => {
         const category = item.description || 'OTHER';
         if (!acc[category]) {
           acc[category] = [];
